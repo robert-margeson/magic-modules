@@ -1,6 +1,6 @@
-{{/*
+{{- /*
 	The license inside this block applies to this file
-	Copyright 2024 Google Inc.
+	Copyright 2026 Google Inc.
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -10,14 +10,9 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 */ -}}
-func expand{{$.GetPrefix}}{{$.TitlelizeProperty}}(v interface{}, d tpgresource.TerraformResourceData, config *transport_tpg.Config) (interface{}, error) {
-	b := []byte(v.(string))
-	if len(b) == 0 {
-		return nil, nil
-	}
-	m := make(map[string]interface{})
-	if err := json.Unmarshal(b, &m); err != nil {
-		return nil, err
-	}
-	return m, nil
+// fetchPublisherModelConfig is served from the global endpoint for the project-wide binding
+// and from the regional / REP endpoint for a per-model binding.
+url, err = vertexAIPublisherModelConfigUrl(d, config, ":fetchPublisherModelConfig")
+if err != nil {
+	return err
 }
